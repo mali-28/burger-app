@@ -1,10 +1,10 @@
 import React, {useContext } from "react";
 import Count from  './Count';
 import {useHistory} from 'react-router-dom';
-
-const HomeContent = () => {
+import { connect } from "react-redux";
+const HomeContent = (props) => {
   const history = useHistory();
-
+  console.log("counter props main",props.counter)
   return (
     <>
     <div className="min-h-50 d-flex j-content-center pt-5">
@@ -39,7 +39,7 @@ const HomeContent = () => {
           <Count title="Cheese"/>
           <Count title="Meat"/>
 
-          <button onClick={()=>{ history.replace('auth')  }} className="w-80per f-2 p-1 mt-2 text-capitalize f-family-monospace bg-lite-yellow">Sign up to order</button>
+          <button style={{background: (!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese)? "#83591a": "#D8AC68", cursor :(!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese)? "not-allowed": "pointer"}} disabled={!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese} onClick={()=>{ history.replace('auth')  }} className="w-80per b-1-brown white f-2 p-1 mt-2 text-capitalize f-family-monospace">Sign up to order</button>
           </div> 
 
         </div>
@@ -48,5 +48,22 @@ const HomeContent = () => {
     </>
   );
 }
+const mapStateToProps = (state) => {
+  return { counter: state };
+};
 
-export default HomeContent;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    increment: (key) => {
+      dispatch({ type: "INCREMENT", payload : key });
+    },
+    decrement: (key) => {
+      dispatch({ type: "DECREMENT", payload : key});
+    },
+  };
+};
+
+const returnedFunction = connect(mapStateToProps, mapDispatchToProps);
+
+export default returnedFunction( HomeContent);
+
