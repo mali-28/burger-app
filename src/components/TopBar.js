@@ -2,6 +2,7 @@ import React from "react";
 import Button from "./Button";
 import {NavLink} from 'react-router-dom';
 
+
 const TopBar = () => {
   
   
@@ -27,7 +28,7 @@ const TopBar = () => {
       
 
       <NavLink style={{padding : "22px 30px 16px 30px", }} className=" white t-decoration-none  f-family-monospace" activeClassName="active-menu" exact to='/'>Burger Builder</NavLink>
-      <NavLink style={{padding : "22px 30px 16px 30px", }} className=" white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/auth'>Login</NavLink>
+      <NavLink style={{padding : "22px 30px 16px 30px", }} className=" white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/userLogin'>Login</NavLink>
 
         
       </div>

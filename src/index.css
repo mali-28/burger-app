@@ -100,6 +100,9 @@ body {
 .p-2{
   padding: 20px;
 }
+.p-3{
+  padding: 30px;
+}
 .pr-2{
   padding-right: 20px;
 }
@@ -167,6 +170,10 @@ body {
 .b-rad-5{
   border-radius: 10px 0 0 10px;
 }
+.f-014{
+  font-size: 14px;
+}
+
 .f-017{
   font-size: 17px;
 }
@@ -239,6 +246,9 @@ body {
   outline: none;
   border: 1px solid #ccc
 }
+/*start*/
+
+
 .box-shadow-ccc{
   box-shadow: rgba(100, 100, 111, 0.2) 0px 4px 10px 0px;
 }

@@ -39,7 +39,7 @@ const HomeContent = (props) => {
           <Count title="Cheese"/>
           <Count title="Meat"/>
 
-          <button style={{background: (!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese)? "#83591a": "#D8AC68", cursor :(!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese)? "not-allowed": "pointer"}} disabled={!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese} onClick={()=>{ history.replace('auth')  }} className="w-80per b-1-brown white f-2 p-1 mt-2 text-capitalize f-family-monospace">Sign up to order</button>
+          <button style={{background: (!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese)? "#83591a": "#D8AC68", cursor :(!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese)? "not-allowed": "pointer"}} disabled={!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese} onClick={()=>{ history.replace('userLogin')  }} className="w-80per b-1-brown white f-2 p-1 mt-2 text-capitalize f-family-monospace">Sign up to order</button>
           </div> 
 
         </div>
