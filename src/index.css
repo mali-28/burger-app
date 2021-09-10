@@ -17,6 +17,12 @@ body {
 .header{
   box-sizing: border-box;
 }
+.h-4{
+  height: 40px;
+}
+.h-05{
+  height: 5px;
+}
 .h-100{
   height: 60px;
 }
@@ -43,6 +49,18 @@ body {
 .brown{
   color: #944317;
 }
+.bg-bacon{
+  background-color: #C24C27;
+}
+.bg-lettuce{
+  background-color: #4AA130;
+}
+.bg-cheese{
+  background-color: #E3C416;
+}
+.bg-meat{
+  background-color: #733007;
+}
 .t-decoration-none{
   text-decoration: none;
 }
@@ -64,9 +82,7 @@ body {
   width: 400px;
 }
 
-.h-4{
-  height: 40px;
-}
+
 .w-08{
   width: 8px;
 }
@@ -90,6 +106,9 @@ body {
 }
 .m-3-auto{
   margin: 30px auto;
+}
+.m-02{
+  margin: 2px;
 }
 .p-05-2{
   padding: 5px 20px;

@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, {useState, useContext } from "react";
 import { NavLink } from 'react-router-dom';
+import { loginContext } from "../context/context";
+import { useHistory } from "react-router-dom";
+import { computeHeadingLevel } from "@testing-library/dom";
 const UserLogin = () => {
 
+    const {login,setLogin} = useContext(loginContext);
+    const history = useHistory();
 
     let [inputData, setInputData] = useState({
         email: '',
@@ -21,13 +26,13 @@ const UserLogin = () => {
 
     // Save this as fetch.js --------------------------------------------------------------------------
 
-    function success(json) {
-        document.getElementById('after').innerHTML = json.message;
-        console.log("AFTER: " + JSON.stringify(json));
-    } // ----------------------------------------------------------------------------------------------
+    // function success(json) {
+    //     document.getElementById('after').innerHTML = json.message;
+    //     console.log("AFTER: " + JSON.stringify(json));
+    // } // ----------------------------------------------------------------------------------------------
 
     function failure(error) {
-        document.getElementById('after').innerHTML = "ERROR: " + error;
+        document.getElementById('after').innerHTML = "ERROR: " + JSON.stringify(error);
         console.log("ERROR: " + error);
     } // --------------------------------------------------------------------------------------
 
@@ -53,8 +58,15 @@ const UserLogin = () => {
                 // 'Authorization':''
             }
         }).then(res => res.json())
-            .then(response => success(response))
-            .catch(error => failure(error));
+            .then(response => {{localStorage.setItem('Islogin' , JSON.stringify(response.token));
+            setLogin(localStorage.getItem('Islogin'));
+            console.log("login response",response); 
+            history.push('/')
+            // return success(response)
+            }})
+            .catch(error => {
+                console.log({error})
+                failure(error)});
 
 
         setInputData({
