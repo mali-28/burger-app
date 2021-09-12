@@ -27,7 +27,7 @@ const TopBar = () => {
         {!login ? <NavLink style={{ padding: "22px 30px 16px 30px", }} className=" white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/userLogin'>Login</NavLink> :
           <>
             <NavLink style={{ padding: "22px 30px 16px 30px", }} className=" white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/userOrder'>Order</NavLink>
-            <NavLink onClick={()=>{setLogin(localStorage.clear())}} style={{ padding: "22px 30px 16px 30px", }} className=" white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/userLogin'>Logout</NavLink>
+            <NavLink onClick={()=>{setLogin(localStorage.removeItem("Islogin"))}} style={{ padding: "22px 30px 16px 30px", }} className=" white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/userLogin'>Logout</NavLink>
           </>}
 
 

@@ -1,17 +1,25 @@
-import React, {useState, useContext } from "react";
+import React, {useState, useContext, useEffect } from "react";
 import { NavLink } from 'react-router-dom';
 import { loginContext } from "../context/context";
-import { useHistory } from "react-router-dom";
-import { computeHeadingLevel } from "@testing-library/dom";
+import { useHistory} from "react-router-dom";
+import { getLocalStorage, setLocalStorage } from "../utils/utils";
+
 const UserLogin = () => {
-
     const {login,setLogin} = useContext(loginContext);
-    const history = useHistory();
+    const [message, setMessage] = useState("");
 
+    const history = useHistory();
+    
     let [inputData, setInputData] = useState({
         email: '',
         password: '',
     });
+
+    useEffect(()=>{
+        if(login){
+            history.replace("/")
+        }
+    },[login])
 
     const change = (event) => {
         event.preventDefault();
@@ -26,21 +34,16 @@ const UserLogin = () => {
 
     // Save this as fetch.js --------------------------------------------------------------------------
 
-    // function success(json) {
-    //     document.getElementById('after').innerHTML = json.message;
-    //     console.log("AFTER: " + JSON.stringify(json));
-    // } // ----------------------------------------------------------------------------------------------
-
-    function failure(error) {
-        document.getElementById('after').innerHTML = "ERROR: " + JSON.stringify(error);
-        console.log("ERROR: " + error);
-    } // --------------------------------------------------------------------------------------
+    // function failure(error) {
+    //     document.getElementById('after').innerHTML = "ERROR: " + error;
+    //     console.log("ERROR: " + error);
+    // } // --------------------------------------------------------------------------------------
 
 
     const click = () => {
 
         
-
+       
     
         // api fetching
 
@@ -58,15 +61,22 @@ const UserLogin = () => {
                 // 'Authorization':''
             }
         }).then(res => res.json())
-            .then(response => {{localStorage.setItem('Islogin' , JSON.stringify(response.token));
-            setLogin(localStorage.getItem('Islogin'));
-            console.log("login response",response); 
-            history.push('/')
-            // return success(response)
-            }})
+            .then(response => {{setLocalStorage('Islogin' , response.token);
+                console.log("responselogin", response)
+                    setMessage(response.message)
+
+                    setLocalStorage("Islogin",response.token)
+                    setLogin(setLocalStorage("Islogin",response.token))
+                    if(login){
+                        history.push('/')
+                    }
+                }
+            
+
+            })
             .catch(error => {
                 console.log({error})
-                failure(error)});
+                setMessage(error)});
 
 
         setInputData({
@@ -81,10 +91,10 @@ const UserLogin = () => {
 
         <div className="w-40 box-shadow-ccc b-1-c9  p-2 m-3-auto d-flex flex-d-column flex-align-center">
             
-            <span id="after" className="f-014 mb-2"></span>
+            <span  className="f-014 mb-2 success">{message}</span>
             <input type="email" onChange={change} name='email' className="input mb-2  f-family-monospace" value={inputData.email} placeholder="E-mail-Address" />
             <input type='password' onChange={change} name='password' className="input mb-2 f-family-monospace" value={inputData.password} placeholder="Password" />
-            <button onClick={() => { click() }} className="f-bold f-family-monospace f-017 bg-white outline-none b-none green mb-2 "> Submit</button>
+            <button style={{cursor : (!inputData.email || !inputData.password)? "not-allowed" : "pointer"}} onClick={() => { click() }} className="f-bold f-family-monospace f-017 bg-white outline-none b-none green mb-2 " disabled={!inputData.email || !inputData.password}> Submit</button>
             <NavLink to='/userSignup' className="f-bold f-family-monospace  bg-white outline-none b-none brown"> Register</NavLink>
             
         </div>
