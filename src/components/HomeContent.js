@@ -3,13 +3,13 @@ import Count from './Count';
 import { useHistory } from 'react-router-dom';
 import { connect } from "react-redux";
 import { loginContext } from "../context/context";
-
-import DialogBox  from "./DialogBox";
+import { products } from "../products/products";
+import DialogBox from "./DialogBox";
 
 const HomeContent = (props) => {
   const history = useHistory();
 
-  const { login} = useContext(loginContext);
+  const { login } = useContext(loginContext);
   const [open, setOpen] = React.useState(false);
 
   const bacon = Array.from(Array(props.counter.Bacon).keys())
@@ -17,7 +17,7 @@ const HomeContent = (props) => {
   const cheese = Array.from(Array(props.counter.Cheese).keys())
   const meat = Array.from(Array(props.counter.Meat).keys())
 
-  
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -47,10 +47,10 @@ const HomeContent = (props) => {
           {(!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese) ? <div><h1 className="t-center">No Ingrediant Added</h1></div> : <div >
             <div>
 
-              {lettuce?.map((val,id)=>{return <div key={id} className="w-40 h-05 bg-lettuce m-02"></div>})}
-              {bacon?.map((val,id)=>{return <div key={id} className="w-40 h-05 bg-bacon m-02"></div>})}
-              {cheese?.map((val,id)=>{return <div key={id} className="w-40 h-05 bg-cheese m-02"></div>})}
-              {meat?.map((val,id)=>{return <div key={id}  className="w-40 h-05 bg-meat m-02"></div>})}
+              {lettuce?.map((val, id) => { return <div key={id} className="w-40 h-05 bg-lettuce m-02"></div> })}
+              {bacon?.map((val, id) => { return <div key={id} className="w-40 h-05 bg-bacon m-02"></div> })}
+              {cheese?.map((val, id) => { return <div key={id} className="w-40 h-05 bg-cheese m-02"></div> })}
+              {meat?.map((val, id) => { return <div key={id} className="w-40 h-05 bg-meat m-02"></div> })}
             </div>
           </div>}
 
@@ -63,15 +63,26 @@ const HomeContent = (props) => {
         </div>
       </div>
       <div className="bg-yellow pt-5 pb-5">
-        <div className="w-26 m-0-auto t-center">
-          <p className="f-2">Current price</p>
+        <div className="w-40 m-0-auto t-center">
+          <p className="f-2">Current price:  ${3+0}</p>
 
-          <div className="w-26">
+          <div className="w-40">
+            <table>
+              <thead>
+                <tr className="head">
+                <td>Items</td>
+                <td>Price</td>
+                <td>Quantity</td>
+                </tr>
+              </thead>         
+              <tbody>    {products.map((val) => {
+                return <tr className="body" key={val.id}>
+                  <Count title={val.title} price={val.price} />
+                </tr>
 
-            <Count title="Lettuce" />
-            <Count title="Bacon" />
-            <Count title="Cheese" />
-            <Count title="Meat" />
+              })}
+              </tbody>
+            </table>
 
             {!login ? <button
               style={{
@@ -93,7 +104,7 @@ const HomeContent = (props) => {
 
       </div>
 
-      <DialogBox onClose={handleClose} open={open} onClick={handleClose} lettuce={props.counter.Lettuce} bacon={props.counter.Bacon} meat={props.counter.Meat} cheese={props.counter.Cheese} remove={()=>{props.remove()}}/> 
+      <DialogBox onClose={handleClose} open={open} onClick={handleClose} lettuce={props.counter.Lettuce} bacon={props.counter.Bacon} meat={props.counter.Meat} cheese={props.counter.Cheese} remove={() => { props.remove() }} />
     </>
   );
 }

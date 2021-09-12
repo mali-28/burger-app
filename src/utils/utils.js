@@ -66,8 +66,8 @@ export const validateUserName = (name) => {
     const value = typeof zipcode === "string" ? zipcode.trim() : "";
     if (!value) {
       return "Zip code is required";
-    } else if (value.length == 5) {
-      return "Enter a valid zip-code";
+    } else if (value.length !== 5) {
+      return "zip-code must be 5 digit";
     }
     return "";
   };
