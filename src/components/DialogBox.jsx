@@ -7,14 +7,14 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
+import { products } from "../products/products";
 
- const DialogBox = ({onClose, open, onClick, ...props}) =>{
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="down" ref={ref} {...props} />;
+});
+
+ const DialogBox = ({counter,onClose, open, onClick, ...props}) =>{
   const history = useHistory();
-  
-  const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Slide direction="down" ref={ref} {...props} />;
-  });
-  
 
   return (
     <div>
@@ -29,12 +29,27 @@ import Slide from '@material-ui/core/Slide';
           <DialogTitle id="alert-dialog-slide-title">{<h3 className="f-family-monospace">Your Order Summary:</h3>}</DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-              <ul>
-                <li>Lettuce : {props.lettuce}</li>
-                <li>Bacon : {props.bacon}</li>
-                <li>Meat : {props.meat}</li>
-                <li>Cheese : {props.cheese}</li>
-              </ul>
+              <table>
+              <thead>
+                    <tr className="body">
+                      <td>Ingredients</td>
+                      <td>quantity</td>
+                      <td>price</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                {products.map((val)=>{
+                 
+                  return <>
+                  <tr key={val.id} className="body">
+                    <td>{val.title}</td>
+                    <td>{counter[val.title]["number"]}</td>
+                    <td>{counter[val.title]["amount"]}</td>
+                    </tr>
+                  </>
+                })}
+                </tbody>
+              </table>
             </DialogContentText>
           </DialogContent>
           <DialogActions>
@@ -44,7 +59,7 @@ import Slide from '@material-ui/core/Slide';
 
             <Button onClick={() => {
               history.replace('checkout');
-              localStorage.setItem("items", JSON.stringify(props.counter));
+              localStorage.setItem("items", JSON.stringify(counter));
               props.remove()
             }} color="primary">
 

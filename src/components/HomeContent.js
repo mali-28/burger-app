@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Count from './Count';
 import { useHistory } from 'react-router-dom';
 import { connect } from "react-redux";
@@ -8,16 +8,17 @@ import DialogBox from "./DialogBox";
 
 const HomeContent = (props) => {
   const history = useHistory();
-
+  
   const { login } = useContext(loginContext);
   const [open, setOpen] = React.useState(false);
-
+  
   const bacon = Array.from(Array(props.counter.Bacon).keys())
   const lettuce = Array.from(Array(props.counter.Lettuce).keys())
   const cheese = Array.from(Array(props.counter.Cheese).keys())
   const meat = Array.from(Array(props.counter.Meat).keys())
-
-
+  const key = Object.values(props.counter);
+  let productPrice =key.reduce((total, currentValue) => total + currentValue.amount,0);
+ 
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -64,8 +65,8 @@ const HomeContent = (props) => {
       </div>
       <div className="bg-yellow pt-5 pb-5">
         <div className="w-40 m-0-auto t-center">
-          <p className="f-2">Current price:  ${3+0}</p>
-
+          <p className="f-2">Current price:  ${3+ productPrice}
+          </p>
           <div className="w-40">
             <table>
               <thead>
@@ -77,7 +78,7 @@ const HomeContent = (props) => {
               </thead>         
               <tbody>    {products.map((val) => {
                 return <tr className="body" key={val.id}>
-                  <Count title={val.title} price={val.price} />
+                  <Count  title={val.title} price={val.price} />
                 </tr>
 
               })}
@@ -86,15 +87,15 @@ const HomeContent = (props) => {
 
             {!login ? <button
               style={{
-                background: (!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese) ? "#83591a" : "#D8AC68",
-                cursor: (!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese) ? "not-allowed" : "pointer"
+                background: !productPrice ? "#83591a" : "#D8AC68",
+                cursor: !productPrice ? "not-allowed" : "pointer"
               }}
-              disabled={!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese}
-              onClick={() => { history.replace('userLogin') }}
+              disabled={!productPrice}
+              onClick={() => {history.replace('userLogin') }}
               className="w-80per b-1-brown white f-2 p-1 mt-2 text-capitalize f-family-monospace">Sign in to order
             </button> :
-              <button style={{ background: (!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese) ? "#83591a" : "#D8AC68", cursor: (!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese) ? "not-allowed" : "pointer" }}
-                disabled={!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese}
+              <button style={{ background: !productPrice ? "#83591a" : "#D8AC68", cursor: !productPrice? "not-allowed" : "pointer" }}
+                disabled={!productPrice}
                 onClick={handleClickOpen}
                 className="w-80per b-1-brown white f-2 p-1 mt-2 text-capitalize f-family-monospace">Order Now
               </button>}
@@ -104,7 +105,8 @@ const HomeContent = (props) => {
 
       </div>
 
-      <DialogBox onClose={handleClose} open={open} onClick={handleClose} lettuce={props.counter.Lettuce} bacon={props.counter.Bacon} meat={props.counter.Meat} cheese={props.counter.Cheese} remove={() => { props.remove() }} />
+      <DialogBox onClose={handleClose} open={open} counter={props.counter} onClick={handleClose}  remove={() => { props.remove() }} />
+      
     </>
   );
 }
@@ -114,12 +116,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    increment: (key) => {
-      dispatch({ type: "INCREMENT", payload: key });
-    },
-    decrement: (key) => {
-      dispatch({ type: "DECREMENT", payload: key });
-    },
+    
     remove: () => {
       dispatch({ type: "REMOVE" });
     },
