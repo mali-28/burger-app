@@ -57,21 +57,17 @@ const Checkout = () => {
       setErrorTypeStreet("")
       setErrorTypeZipcode("")
       
-      
     }else if(streetError!== ""){
       setErrorTypeStreet(streetError)
       setErrorTypeName("")
       setErrorTypeMail("")
       setErrorTypeZipcode("")
-      
     }else if(zipcodeError!== ""){
       setErrorTypeZipcode(zipcodeError)
       setErrorTypeStreet("")
       setErrorTypeName("");
       setErrorTypeMail("");
 
-
-      
     }else {
       
       setErrorTypeName("");
@@ -79,7 +75,7 @@ const Checkout = () => {
       setErrorTypeStreet("")
       setErrorTypeZipcode("")
 
-    }
+    
     const items = getLocalStorage("items");
     setLocalStorage("items", { ...items, orderData })
     const userData = getLocalStorage("items");
@@ -94,6 +90,7 @@ const Checkout = () => {
     history.push("order")
 
   }
+}
 
   return (
     <>

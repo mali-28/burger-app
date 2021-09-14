@@ -79,7 +79,8 @@ const UserSignUp = () => {
       setErrorTypeMail("");
       setErrorTypePass("");
     } else {
-
+      setLoading((pre)=> !pre);
+      
       setErrorTypeName("");
       setErrorTypeMail("");
       setErrorTypePass("");
