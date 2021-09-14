@@ -5,9 +5,12 @@ import { products } from "../products/products";
 import { getLocalStorage } from "../utils/utils";
 const Order = () => {
     const history = useHistory();
-    const {login} = useContext(loginContext);
+    const {login, user} = useContext(loginContext);
 
     const orderList = getLocalStorage("orderList") || null || [];
+    const userOrder = orderList?.filter((val)=>{
+      return val.orderData.email === user.mail
+})
     useEffect(()=>{
       if(!login){
           history.replace("UserLogin")
@@ -16,7 +19,9 @@ const Order = () => {
 
   return (<>
   <h1 className="t-center mt-3 red">Orders</h1>
-  {orderList?.map((val,id)=>{
+
+ 
+  {userOrder?.map((val,id)=>{
     return<>
     <div key={id} className="w-45 h-20 m-1-auto d-flex j-content-between">
     <table className="b-01-red">

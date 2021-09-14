@@ -4,10 +4,10 @@ import { getLocalStorage } from "../utils/utils";
 const loginContext = createContext(false);
 
 const Context = (props) =>{
-    const [data, setData] = useState(false);
     
     
     const [login, setLogin] = useState(getLocalStorage("Islogin"));
+    const [user, setUser] = useState(getLocalStorage("__USER__") || {});
     
 
     useEffect(()=>{
@@ -20,7 +20,7 @@ const Context = (props) =>{
 
 
 return<>
-<loginContext.Provider value={{login,setLogin, data, setData}}>
+<loginContext.Provider value={{login,setLogin,user, setUser}}>
     {props.children}
 </loginContext.Provider></>
 

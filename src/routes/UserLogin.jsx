@@ -6,7 +6,7 @@ import { getLocalStorage, setLocalStorage } from "../utils/utils";
 import Loader from "../components/Loader";
 const UserLogin = () => {
     const [loading, setLoading] = useState(false);
-    const {login,setLogin} = useContext(loginContext);
+    const {login,setLogin,user, setUser} = useContext(loginContext);
     const [message, setMessage] = useState("");
 
     const history = useHistory();
@@ -56,11 +56,15 @@ const UserLogin = () => {
                 // 'Authorization':''
             }
         }).then(res => res.json())
-            .then(response => {{setLocalStorage('Islogin' , response.token);
+            .then(response => {{
+                console.log("res", response)
+                setLocalStorage("__USER__", {name : response.user.name, mail : response.user.email})
+                setUser(getLocalStorage("__USER__"))
+                setLocalStorage('Islogin' , response.token);
                     setMessage(response.message)
-
                     setLocalStorage("Islogin",response.token)
                     setLogin(setLocalStorage("Islogin",response.token))
+
                     if(login){
                         history.push('/')
                     }

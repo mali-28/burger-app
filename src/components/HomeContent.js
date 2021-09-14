@@ -20,14 +20,9 @@ const HomeContent = (props) => {
   let productPrice =key.reduce((total, currentValue) => total + currentValue.amount,0);
  
 
- 
-
   const handleDialog = () => {
     setOpen((prev)=> !prev);
   };
-
-
-
 
   return (
     <>

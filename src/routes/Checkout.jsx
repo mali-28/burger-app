@@ -5,13 +5,13 @@ import { loginContext } from "../context/context";
 import InputField from '../components/InputField';
 
 import {
-  validateEmail,
   validateUserName,
   validateZipCode
 } from "../utils/utils";
-const Checkout = () => {
-  const {login} = useContext(loginContext);
 
+const Checkout = () => {
+  const {login,user} = useContext(loginContext);
+console.log("user" , user)
   const history = useHistory();
 
   useEffect(() => {
@@ -20,13 +20,11 @@ const Checkout = () => {
     }
   }, [login])
   
-  const [errorTypeName, setErrorTypeName] = useState("");
-  const [errorTypeMail, setErrorTypeMail] = useState("");
   const [errorTypeStreet, setErrorTypeStreet] = useState("");
   const [errorTypeZipcode, setErrorTypeZipcode] = useState("");
   let [orderData, setorderData] = useState({
-    name: '',
-    email: '',
+    name: [user.name.split(" ")[0]].join(),
+    email: user.mail,
     street: "",
     zipCode: '',
   });
@@ -41,37 +39,18 @@ const Checkout = () => {
   }
 
   const click = () => {
-    const nameError = validateUserName(orderData.name);
     const streetError = validateUserName(orderData.street);
-    const emailError = validateEmail(orderData.email);
     const zipcodeError =   validateZipCode(orderData.zipCode);
-    if (nameError !== "") {
-      setErrorTypeName(nameError)
-      setErrorTypeMail("")
-      setErrorTypeStreet("")
-      setErrorTypeZipcode("")
-      
-    }else if(emailError!== ""){
-      setErrorTypeMail(emailError)
-      setErrorTypeName("")
-      setErrorTypeStreet("")
-      setErrorTypeZipcode("")
-      
-    }else if(streetError!== ""){
+
+    if(streetError!== ""){
       setErrorTypeStreet(streetError)
-      setErrorTypeName("")
-      setErrorTypeMail("")
       setErrorTypeZipcode("")
     }else if(zipcodeError!== ""){
       setErrorTypeZipcode(zipcodeError)
       setErrorTypeStreet("")
-      setErrorTypeName("");
-      setErrorTypeMail("");
 
     }else {
       
-      setErrorTypeName("");
-      setErrorTypeMail("");
       setErrorTypeStreet("")
       setErrorTypeZipcode("")
 
@@ -82,8 +61,6 @@ const Checkout = () => {
     setLocalStorage("orderList", [...((getLocalStorage("orderList") || null) || []), userData])
     
     setorderData({
-      name: '',
-      email: '',
       street: "",
       zipCode: '',
     });
@@ -97,10 +74,10 @@ const Checkout = () => {
       <div className="w-40 box-shadow-ccc b-1-c9  p-3 m-3-auto d-flex flex-d-column flex-align-center">
 
         <span id="after" className="f-014 mb-2"></span>
-        <InputField type="text" onChange={change} error={errorTypeName} name='name' placeholder="Name" value={orderData.name}/>
-        <InputField type="email" onChange={change} error={errorTypeMail} name='email' placeholder="Email" value={orderData.email}/>
+        <InputField type="text" disabled onChange={change} name='name' placeholder="Name" value={orderData.name}/>
+        <InputField type="email" disabled onChange={change} name='email' placeholder="Email" value={orderData.email}/>
         <InputField type="text" onChange={change}  error={errorTypeStreet} name='street'   placeholder="Street" value={orderData.street}/>
-        <InputField type="text" onChange={change} error={errorTypeZipcode} name='zipCode'  placeholder="Zip code" value={orderData.zipCode}/>
+        <InputField type="number" onChange={change} error={errorTypeZipcode} name='zipCode'  placeholder="Zip code" value={orderData.zipCode}/>
 
         <button onClick={click} className="f-bold f-family-monospace f-017 bg-white outline-none b-none green mb-2 mt-2 cursor-pointer"> Order</button>
 
