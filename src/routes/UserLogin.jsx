@@ -57,16 +57,22 @@ const UserLogin = () => {
             }
         }).then(res => res.json())
             .then(response => {{
-                console.log("res", response)
-                setLocalStorage("__USER__", {name : response.user.name, mail : response.user.email})
-                setUser(getLocalStorage("__USER__"))
-                setLocalStorage('Islogin' , response.token);
-                    setMessage(response.message)
-                    setLocalStorage("Islogin",response.token)
-                    setLogin(setLocalStorage("Islogin",response.token))
-
-                    if(login){
+                
+                    if(response?.token){
+                        setLocalStorage("__USER__", {name : response.user.name, mail : response.user.email})
+                        setUser(getLocalStorage("__USER__"))
+                        setLocalStorage('Islogin' , response.token);
+                            setLocalStorage("Islogin",response.token)
+                            setLogin(setLocalStorage("Islogin",response.token))
+                        setInputData({
+                            email: '',
+                            password: '',
+                        })
                         history.push('/')
+                    }else{
+                    setMessage(response.message)
+                    
+                        
                     }
                 }
             
@@ -76,12 +82,9 @@ const UserLogin = () => {
                 setMessage(error)
             })
             .finally(()=>{
-                    setLoading((pre)=> !pre);
+                    setLoading((pre)=> { console.log("pre", pre) ;return !pre})
     
-                    setInputData({
-                        email: '',
-                        password: '',
-                    })
+                    
                 })
   }
     

@@ -17,8 +17,8 @@ const HomeContent = (props) => {
   const cheese = Array.from(Array(props.counter.Cheese.number).keys())
   const meat = Array.from(Array(props.counter.Meat.number).keys())
   const key = Object.values(props.counter);
-  let productPrice =key.reduce((total, currentValue) => total + currentValue.amount,0);
- 
+  const productPrice =key.reduce((total, currentValue) => total + currentValue.amount,0);
+   console.log('product', productPrice)
 
   const handleDialog = () => {
     setOpen((prev)=> !prev);
