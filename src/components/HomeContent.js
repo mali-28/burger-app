@@ -2,18 +2,10 @@ import React, { useContext } from "react";
 import Count from './Count';
 import { useHistory } from 'react-router-dom';
 import { connect } from "react-redux";
+import { useHistory } from 'react-router-dom';
+import Count from './Count';
 import { loginContext } from "../context/context";
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Slide from '@material-ui/core/Slide';
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="down" ref={ref} {...props} />;
-});
+import DialogBox from "./DialogBox";
 
 const HomeContent = (props) => {
   const history = useHistory();
@@ -25,13 +17,11 @@ const HomeContent = (props) => {
   const cheese = Array.from(Array(props.counter.Cheese).keys())
   const meat = Array.from(Array(props.counter.Meat).keys())
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleDialog = () => {
+    setOpen((prev)=> !prev);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  
 
 
 
@@ -84,13 +74,13 @@ const HomeContent = (props) => {
                 background: (!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese) ? "#83591a" : "#D8AC68",
                 cursor: (!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese) ? "not-allowed" : "pointer"
               }}
-              disabled={!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese}
-              onClick={() => { history.replace('userLogin') }}
+              disabled={!productPrice}
+              onClick={() => {history.replace('login') }}
               className="w-80per b-1-brown white f-2 p-1 mt-2 text-capitalize f-family-monospace">Sign in to order
             </button> :
-              <button style={{ background: (!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese) ? "#83591a" : "#D8AC68", cursor: (!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese) ? "not-allowed" : "pointer" }}
-                disabled={!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese}
-                onClick={handleClickOpen}
+              <button style={{ background: !productPrice ? "#83591a" : "#D8AC68", cursor: !productPrice? "not-allowed" : "pointer" }}
+                disabled={!productPrice}
+                onClick={handleDialog}
                 className="w-80per b-1-brown white f-2 p-1 mt-2 text-capitalize f-family-monospace">Order Now
               </button>}
           </div>
@@ -99,42 +89,8 @@ const HomeContent = (props) => {
 
       </div>
 
-      <div>
-        <Dialog
-          open={open}
-          TransitionComponent={Transition}
-          keepMounted
-          onClose={handleClose}
-          aria-labelledby="alert-dialog-slide-title"
-          aria-describedby="alert-dialog-slide-description"
-        >
-          <DialogTitle id="alert-dialog-slide-title">{<h3 className="f-family-monospace">Your Order Summary:</h3>}</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
-              <ul>
-                <li>Lettuce : {props.counter.Lettuce}</li>
-                <li>Bacon : {props.counter.Bacon}</li>
-                <li>Meat : {props.counter.Meat}</li>
-                <li>Cheese : {props.counter.Cheese}</li>
-              </ul>
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              Cancel
-            </Button>
-
-            <Button onClick={() => {
-              history.replace('checkout');
-              localStorage.setItem("items", JSON.stringify(props.counter));
-              props.remove();
-            }} color="primary">
-
-              Agree
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
+      <DialogBox onClose={handleDialog} open={open} counter={props.counter}   remove={() => { props.remove() }} />
+      
     </>
   );
 }

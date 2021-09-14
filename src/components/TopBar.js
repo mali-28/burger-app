@@ -23,11 +23,11 @@ const TopBar = () => {
       <div style={{ paddingRight: 20 }}>
 
 
-        <NavLink style={{ padding: "22px 30px 16px 30px", }} className=" white t-decoration-none  f-family-monospace" activeClassName="active-menu" exact to='/'>Burger Builder</NavLink>
-        {!login ? <NavLink style={{ padding: "22px 30px 16px 30px", }} className=" white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/userLogin'>Login</NavLink> :
+        <NavLink  className="p-022-3-016-3 white t-decoration-none  f-family-monospace" activeClassName="active-menu" exact to='/'>Burger Builder</NavLink>
+        {!login ? <NavLink  className="p-022-3-016-3 white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/login'>Login</NavLink> :
           <>
-            <NavLink style={{ padding: "22px 30px 16px 30px", }} className=" white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/userOrder'>Order</NavLink>
-            <NavLink onClick={()=>{setLogin(localStorage.clear())}} style={{ padding: "22px 30px 16px 30px", }} className=" white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/userLogin'>Logout</NavLink>
+            <NavLink  className=" p-022-3-016-3 white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/order'>Order</NavLink>
+            <NavLink onClick={()=>{setLogin(localStorage.removeItem("Islogin"))}}  className="p-022-3-016-3  white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/login'>Logout</NavLink>
           </>}
 
 
