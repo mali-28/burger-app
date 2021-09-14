@@ -14,8 +14,8 @@ const TopBar = () => {
           <NavLink to="/">
             <img
               alt={"logo"}
-              src="/favicon-196x196.png"
-              className="h-4"
+              src="/logo.jpg"
+              className="h-4 ml-2 br-2"
             />
           </NavLink>
         </div>

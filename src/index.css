@@ -299,6 +299,9 @@ tr.b-top-1-ccc td{
 .br-none{
   border-radius: 0;
 }
+.br-2{
+  border-radius: 20px;
+}
 .input{
   width: 100%;
   padding: 6px 12px;
