@@ -21,10 +21,10 @@ ReactDOM.render(
         <TopBar/>
         <Provider store={store}>
         <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/userLogin" component={UserLogin}/>
-      <Route exact path="/userSignup" component={UserSignUp}/>
-      <Route exact path="/userOrder" component={Order}/>
+        <Route exact path="/" component={Home} />
+      <Route exact path="/login" component={UserLogin}/>
+      <Route exact path="/signup" component={UserSignUp}/>
+      <Route exact path="/order" component={Order}/>
       <Route exact path="/checkout" component={Checkout}/>
       <Redirect  to="/"/>
       </Switch>

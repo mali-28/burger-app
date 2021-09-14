@@ -8,13 +8,20 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import { products } from "../products/products";
+import { setLocalStorage } from '../utils/utils';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="down" ref={ref} {...props} />;
 });
 
- const DialogBox = ({counter,onClose, open, onClick, ...props}) =>{
+ const DialogBox = ({counter,onClose, open, ...props}) =>{
   const history = useHistory();
+
+  const agree = () => {
+    history.replace('checkout');
+    setLocalStorage("items", counter);
+    props.remove()
+  }
 
   return (
     <div>
@@ -53,15 +60,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button onClick={onClick} color="primary">
+            <Button onClick={onClose} color="primary">
               Cancel
             </Button>
 
-            <Button onClick={() => {
-              history.replace('checkout');
-              localStorage.setItem("items", JSON.stringify(counter));
-              props.remove()
-            }} color="primary">
+            <Button onClick={agree} color="primary">
 
               Agree
             </Button>
@@ -70,5 +73,4 @@ const Transition = React.forwardRef(function Transition(props, ref) {
       </div>
   );
 }
-
 export default DialogBox;

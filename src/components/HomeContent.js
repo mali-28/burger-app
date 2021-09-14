@@ -1,10 +1,10 @@
 import React, { useContext, useEffect } from "react";
-import Count from './Count';
-import { useHistory } from 'react-router-dom';
 import { connect } from "react-redux";
+import DialogBox from "./DialogBox";
+import { useHistory } from 'react-router-dom';
+import Count from './Count';
 import { loginContext } from "../context/context";
 import { products } from "../products/products";
-import DialogBox from "./DialogBox";
 
 const HomeContent = (props) => {
   const history = useHistory();
@@ -20,18 +20,15 @@ const HomeContent = (props) => {
   let productPrice =key.reduce((total, currentValue) => total + currentValue.amount,0);
  
 
-  const handleClickOpen = () => {
-    setOpen(true);
+ 
+
+  const handleDialog = () => {
+    setOpen((prev)=> !prev);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
 
 
 
-
-  console.log("counter props main", props.counter)
   return (
     <>
       <div className="min-h-50 d-flex j-content-center pt-5">
@@ -91,12 +88,12 @@ const HomeContent = (props) => {
                 cursor: !productPrice ? "not-allowed" : "pointer"
               }}
               disabled={!productPrice}
-              onClick={() => {history.replace('userLogin') }}
+              onClick={() => {history.replace('login') }}
               className="w-80per b-1-brown white f-2 p-1 mt-2 text-capitalize f-family-monospace">Sign in to order
             </button> :
               <button style={{ background: !productPrice ? "#83591a" : "#D8AC68", cursor: !productPrice? "not-allowed" : "pointer" }}
                 disabled={!productPrice}
-                onClick={handleClickOpen}
+                onClick={handleDialog}
                 className="w-80per b-1-brown white f-2 p-1 mt-2 text-capitalize f-family-monospace">Order Now
               </button>}
           </div>
@@ -105,7 +102,7 @@ const HomeContent = (props) => {
 
       </div>
 
-      <DialogBox onClose={handleClose} open={open} counter={props.counter} onClick={handleClose}  remove={() => { props.remove() }} />
+      <DialogBox onClose={handleDialog} open={open} counter={props.counter}   remove={() => { props.remove() }} />
       
     </>
   );

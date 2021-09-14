@@ -6,8 +6,6 @@ export const counter = (state = JSON.parse(JSON.stringify(quantity)), action) =>
 
   switch (action.type) {
     case "INCREMENT": {
-      console.log("INCREMENT")
-      console.log(state[action.payload])
       let addInteger = state[action.payload.title]["number"] + 1;
       state[action.payload.title]["number"] = addInteger
       let addAmount = state[action.payload.title]["amount"]
@@ -17,7 +15,6 @@ export const counter = (state = JSON.parse(JSON.stringify(quantity)), action) =>
       return ({ ...state, [action.payload.title]: { number: addInteger, amount: addAmount } });
     }
     case "DECREMENT": {
-      console.log("DECREMENT")
       let subInteger = state[action.payload.title]["number"] - 1; console.log({ subInteger })
 
       state[action.payload.title]["number"] = subInteger
@@ -33,7 +30,6 @@ export const counter = (state = JSON.parse(JSON.stringify(quantity)), action) =>
 
     }
     case "REMOVE": {
-      console.log("REMOVE", quantity)
 
       return ( { Lettuce: { number: 0, amount: 0 }, Bacon: { number: 0, amount: 0 }, Cheese: { number: 0, amount: 0 }, Meat: { number: 0, amount: 0 } });
     }

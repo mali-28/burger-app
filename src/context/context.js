@@ -8,14 +8,11 @@ const Context = (props) =>{
     
     
     const [login, setLogin] = useState(getLocalStorage("Islogin"));
-    console.log(getLocalStorage("Islogin"))
     
-    console.log("loginlogin", login)
 
     useEffect(()=>{
         
         const token = getLocalStorage("Islogin");
-        console.log("tokentoken",token)
         
         setLogin(token);
         

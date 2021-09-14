@@ -10,18 +10,18 @@ import {
   validateZipCode
 } from "../utils/utils";
 const Checkout = () => {
+  const {login,setLogin} = useContext(loginContext);
+
   const history = useHistory();
-  const { login, setLogin } = useContext(loginContext);
 
   useEffect(() => {
     if (!login) {
-      history.replace("/userLogin")
+      history.replace("/login")
     }
   }, [login])
   
   const [errorTypeName, setErrorTypeName] = useState("");
   const [errorTypeMail, setErrorTypeMail] = useState("");
-  const [errorTypeCountry, setErrorTypeCountry] = useState("");
   const [errorTypeStreet, setErrorTypeStreet] = useState("");
   const [errorTypeZipcode, setErrorTypeZipcode] = useState("");
   let [orderData, setorderData] = useState({
@@ -29,7 +29,6 @@ const Checkout = () => {
     email: '',
     street: "",
     zipCode: '',
-    country: '',
   });
 
   const change = (event) => {
@@ -45,48 +44,31 @@ const Checkout = () => {
     const nameError = validateUserName(orderData.name);
     const streetError = validateUserName(orderData.street);
     const emailError = validateEmail(orderData.email);
-    const countryError = validateUserName(orderData.country);
     const zipcodeError =   validateZipCode(orderData.zipCode);
     if (nameError !== "") {
       setErrorTypeName(nameError)
-      setErrorTypeMail("");
-      setErrorTypeCountry("")
+      setErrorTypeMail("")
       setErrorTypeStreet("")
       setErrorTypeZipcode("")
       
     }else if(emailError!== ""){
       setErrorTypeMail(emailError)
-      setErrorTypeName("");
-      setErrorTypeCountry("")
+      setErrorTypeName("")
       setErrorTypeStreet("")
       setErrorTypeZipcode("")
       
-      
-    }else if(countryError!== ""){
-      setErrorTypeCountry(countryError)
-      setErrorTypeName("");
-      setErrorTypeMail("");
-      setErrorTypeStreet("")
-      setErrorTypeZipcode("")
-      
-
       
     }else if(streetError!== ""){
       setErrorTypeStreet(streetError)
-      setErrorTypeName("");
-      setErrorTypeMail("");
-      setErrorTypeCountry("")
+      setErrorTypeName("")
+      setErrorTypeMail("")
       setErrorTypeZipcode("")
-
-
-
       
     }else if(zipcodeError!== ""){
       setErrorTypeZipcode(zipcodeError)
       setErrorTypeStreet("")
       setErrorTypeName("");
       setErrorTypeMail("");
-      setErrorTypeCountry("")
 
 
       
@@ -94,11 +76,10 @@ const Checkout = () => {
       
       setErrorTypeName("");
       setErrorTypeMail("");
-      setErrorTypeCountry("")
       setErrorTypeStreet("")
       setErrorTypeZipcode("")
 
-
+    }
     const items = getLocalStorage("items");
     setLocalStorage("items", { ...items, orderData })
     const userData = getLocalStorage("items");
@@ -109,11 +90,8 @@ const Checkout = () => {
       email: '',
       street: "",
       zipCode: '',
-      country: '',
     });
-    history.push("userOrder")
-
-  }
+    history.push("order")
 
   }
 
@@ -124,7 +102,6 @@ const Checkout = () => {
         <span id="after" className="f-014 mb-2"></span>
         <InputField type="text" onChange={change} error={errorTypeName} name='name' placeholder="Name" value={orderData.name}/>
         <InputField type="email" onChange={change} error={errorTypeMail} name='email' placeholder="Email" value={orderData.email}/>
-        <InputField type="text" onChange={change} error={errorTypeCountry} name='country'   placeholder="Country" value={orderData.country}/>
         <InputField type="text" onChange={change}  error={errorTypeStreet} name='street'   placeholder="Street" value={orderData.street}/>
         <InputField type="text" onChange={change} error={errorTypeZipcode} name='zipCode'  placeholder="Zip code" value={orderData.zipCode}/>
 
@@ -137,5 +114,6 @@ const Checkout = () => {
 
   );
 }
+
 
 export default Checkout;
