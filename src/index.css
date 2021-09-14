@@ -51,6 +51,9 @@
 .red{
   color: red;
 }
+.yellow{
+  color: #f3d424;
+}
 .bg-bacon{
   background-color: #C24C27;
 }
@@ -172,6 +175,10 @@
 }
 tr.head td {padding-top: 30px; padding-bottom:15px}
 tr.body td {padding-left: 10px; padding-right:10px; padding-top: 2px; padding-bottom:2px}
+
+tr.b-top-1-ccc td{
+  border-top: 1px solid #ccc;
+}
 .mt-05{
   margin-top: 5px;
 }
@@ -252,7 +259,7 @@ tr.body td {padding-left: 10px; padding-right:10px; padding-top: 2px; padding-bo
 .j-content-around{
   justify-content: space-around;
 }
-..j-content-between{
+.j-content-between{
   justify-content: space-between;
 }
 .flex-d-column{
@@ -277,8 +284,8 @@ tr.body td {padding-left: 10px; padding-right:10px; padding-top: 2px; padding-bo
 .b-01-solid-ccc{
   border: 1px solid #ccc ;
 }
-.b-01{
-  border: 1px solid #000 ;
+.b-01-red{
+  border: 1px solid red ;
 }
 .box-shadow-gray{
   box-shadow: 1px -0.5px 0 2px #C9C9C9;

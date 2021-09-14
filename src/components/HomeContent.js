@@ -12,10 +12,10 @@ const HomeContent = (props) => {
   const { login } = useContext(loginContext);
   const [open, setOpen] = React.useState(false);
   
-  const bacon = Array.from(Array(props.counter.Bacon).keys())
-  const lettuce = Array.from(Array(props.counter.Lettuce).keys())
-  const cheese = Array.from(Array(props.counter.Cheese).keys())
-  const meat = Array.from(Array(props.counter.Meat).keys())
+  const bacon = Array.from(Array(props.counter.Bacon.number).keys())
+  const lettuce = Array.from(Array(props.counter.Lettuce.number).keys())
+  const cheese = Array.from(Array(props.counter.Cheese.number).keys())
+  const meat = Array.from(Array(props.counter.Meat.number).keys())
   const key = Object.values(props.counter);
   let productPrice =key.reduce((total, currentValue) => total + currentValue.amount,0);
  
@@ -42,7 +42,7 @@ const HomeContent = (props) => {
             <div className="bg-white h-4 w-08 ml-6 mt-2 rotate-r-30 b-rad-5 box-shadow-gray"></div>
           </div>
 
-          {(!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese) ? <div><h1 className="t-center">No Ingrediant Added</h1></div> : <div >
+          {!productPrice ? <div><h1 className="t-center red">No Ingrediant Added</h1></div> : <div >
             <div>
 
               {lettuce?.map((val, id) => { return <div key={id} className="w-40 h-05 bg-lettuce m-02"></div> })}
@@ -62,7 +62,7 @@ const HomeContent = (props) => {
       </div>
       <div className="bg-yellow pt-5 pb-5">
         <div className="w-40 m-0-auto t-center">
-          <p className="f-2">Current price:  ${3+ productPrice}
+          <p className="f-2">Current price:  ${productPrice}
           </p>
           <div className="w-40">
             <table>
@@ -102,7 +102,7 @@ const HomeContent = (props) => {
 
       </div>
 
-      <DialogBox onClose={handleDialog} open={open} counter={props.counter}   remove={() => { props.remove() }} />
+      <DialogBox total={productPrice} onClose={handleDialog} open={open} counter={props.counter}   remove={() => { props.remove() }} />
       
     </>
   );

@@ -15,45 +15,45 @@ const Order = () => {
   },[login])
 
   return (<>
-  <h1 className="t-center mt-3">Orders</h1>
+  <h1 className="t-center mt-3 red">Orders</h1>
   {orderList?.map((val,id)=>{
     return<>
-    <div key={id} className="w-45 h-20 b-01-solid-ccc m-1-auto d-flex j-content-between">
-    <table className="b-01">
+    <div key={id} className="w-45 h-20 m-1-auto d-flex j-content-between">
+    <table className="b-01-red">
               <thead>
                     <tr className="body">
-                      <td colSpan="2">User Detail </td>
+                      <td className="t-center red" colSpan="2">User Detail </td>
                     </tr>
                   </thead>
                   <tbody >
                   <tr className="body">
-                    <td>Name</td>
-                    <td>{val.orderData.name}</td>
+                    <td className="red">Name</td>
+                    <td className="success">{val.orderData.name}</td>
                     </tr>
 
                     <tr className="body">
-                    <td>Email</td>
-                    <td>{val.orderData.email}</td>
+                    <td className="red">Email</td>
+                    <td className="success">{val.orderData.email}</td>
                     </tr>
 
                     <tr className="body">
-                    <td>Street</td>
-                    <td>{val.orderData.street}</td>
+                    <td className="red">Street</td>
+                    <td className="success">{val.orderData.street}</td>
                     </tr>
 
                     <tr className="body">
-                    <td>Zip-code</td>
-                    <td>{val.orderData.zipCode}</td>
+                    <td className="red">zipcode</td>
+                    <td className="success">{val.orderData.zipCode}</td>
                     </tr>
                   
                 </tbody>
               </table>
-    <table className="b-01">
+    <table className="b-01-red">
               <thead>
                     <tr className="body">
-                      <td>Ingredients</td>
-                      <td>quantity</td>
-                      <td>price</td>
+                      <td className="red">Ingredients</td>
+                      <td className="red">quantity</td>
+                      <td className="red">price</td>
                     </tr>
                   </thead>
                   <tbody>
@@ -61,12 +61,16 @@ const Order = () => {
                  
                   return <>
                   <tr key={elem.id} className="body">
-                    <td>{elem.title}</td>
-                    <td>{val[elem.title]["number"]}</td>
-                    <td>{val[elem.title]["amount"]}</td>
+                    <td className="red">{elem.title}</td>
+                    <td className="success t-center">{val[elem.title]["number"]}</td>
+                    <td className="success t-center">{val[elem.title]["amount"]}</td>
                     </tr>
                   </>
                 })}
+                <tr className="body b-top-1-ccc">
+                  <td  className="yellow" colSpan="2">Total</td>
+                  <td className="yellow">${val.total}</td>
+                </tr>
                 </tbody>
               </table>
    

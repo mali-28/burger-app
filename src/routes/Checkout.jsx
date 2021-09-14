@@ -10,7 +10,7 @@ import {
   validateZipCode
 } from "../utils/utils";
 const Checkout = () => {
-  const {login,setLogin} = useContext(loginContext);
+  const {login} = useContext(loginContext);
 
   const history = useHistory();
 
