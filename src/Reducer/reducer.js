@@ -1,16 +1,37 @@
 // Reducer
 const quantity = {Lettuce : 0, Bacon : 0, Cheese : 0, Meat : 0}
 
-export const counter = (state = quantity, action) => {
+export const counter = (state = JSON.parse(JSON.stringify(quantity)), action) => {
+
+
   switch (action.type) {
-    case "INCREMENT":  {
-      console.log(state[action.payload])
-      state[action.payload] += 1;
-      return ({...state, [action.payload] : state[action.payload] });
-  } 
-  case "DECREMENT": {
-    state[action.payload] -= 1;
-    return ({...state, [action.payload] : state[action.payload] });
+    case "INCREMENT": {
+      let addInteger = state[action.payload.title]["number"] + 1;
+      state[action.payload.title]["number"] = addInteger
+      let addAmount = state[action.payload.title]["amount"]
+      addAmount = addInteger * action.payload.price;
+      state[action.payload.title]["amount"] = addAmount;
+
+      return ({ ...state, [action.payload.title]: { number: addInteger, amount: addAmount } });
+    }
+    case "DECREMENT": {
+      let subInteger = state[action.payload.title]["number"] - 1; console.log({ subInteger })
+
+      state[action.payload.title]["number"] = subInteger
+      let subAmount = state[action.payload.title]["amount"]
+      if (subInteger) {
+        subAmount -= action.payload.price;
+      } else {
+        subAmount = 0;
+      }
+      state[action.payload.title]["amount"] = subAmount;
+
+      return ({ ...state, [action.payload.title]: { number: subInteger, amount: subAmount } });
+
+    }
+    case "REMOVE": {
+
+    return ({Lettuce : 0, Bacon : 0, Cheese : 0, Meat : 0});
   } 
     default: return state;
   }
