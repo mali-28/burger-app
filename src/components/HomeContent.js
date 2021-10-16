@@ -24,6 +24,8 @@ const HomeContent = (props) => {
     setOpen((prev)=> !prev);
   };
 
+  
+
   return (
     <>
       <div className="min-h-50 d-flex j-content-center pt-5">

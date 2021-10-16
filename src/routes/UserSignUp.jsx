@@ -49,6 +49,7 @@ const UserSignUp = () => {
   // Save this as fetch.js --------------------------------------------------------------------------
 
   const click = () => {
+    
     const nameError = validateUserName(signUpData.name);
     const emailError = validateEmail(signUpData.email);
     const passError = validatePassword(signUpData.password);
@@ -80,7 +81,6 @@ const UserSignUp = () => {
       setErrorTypePass("");
     } else {
       setLoading((pre)=> !pre);
-      
       setErrorTypeName("");
       setErrorTypeMail("");
       setErrorTypePass("");
@@ -108,18 +108,18 @@ const UserSignUp = () => {
       });
       })
 
+      
 
     }
   }
   function back() {
     history.goBack()
   }
-
+  
 
   return <>
 
     <div className="w-40 box-shadow-ccc b-1-c9  p-3 m-3-auto d-flex flex-d-column flex-align-center">
-
     {loading? <Loader/> : <><span className={`${color} f-014 mb-2`}>{message}</span>
       <InputField type="text" onChange={change} error={errorTypeName} name='name' placeholder="Name" value={signUpData.name} />
       <InputField type="email" onChange={change} error={errorTypeMail} name='email' placeholder="Email" value={signUpData.email} />

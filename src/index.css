@@ -16,11 +16,14 @@
 .header{
   box-sizing: border-box;
 }
+.h-05{
+  height: 5px;
+}
 .h-4{
   height: 40px;
 }
-.h-05{
-  height: 5px;
+.h-20{
+  height: 200px;
 }
 .h-10{
   height: 100px;
@@ -124,6 +127,9 @@
 }
 .p-05-2{
   padding: 5px 20px;
+}
+.p-022-3-016-3{
+  padding: 22px 30px 16px 30px;
 }
 .p-1{
   padding: 10px;
@@ -290,6 +296,12 @@ tr.b-top-1-ccc td{
 .box-shadow-gray{
   box-shadow: 1px -0.5px 0 2px #C9C9C9;
 }
+.b-01-solid-ccc{
+  border: 1px solid #ccc ;
+}
+.b-01{
+  border: 1px solid #000 ;
+}
 .b-1-brown{
   border: 1px solid #AA6817;
 }
@@ -356,12 +368,6 @@ ul {
   box-sizing: border-box;
    position: absolute;
 }
-.div4 {
-  width: 30px;
-  height: 30px;
-  margin: 5px 0 0 5px;
-  border: 5px solid crimson; 
-}
 
 .spin-cw{
   animation: spin-cw 2s infinite;
@@ -391,6 +397,30 @@ ul {
       transform:rotate(0deg);
 }
 }
+
+
+.div4 {
+  width: 30px;
+  height: 30px;
+  margin: 5px 0 0 5px;
+  border: 5px solid crimson; 
+}
+
+
+
+
+
+.card {
+  text-align: center;
+  border-radius: 6px;
+  display: inline-block;
+  height: 650px;
+  margin: 1rem;
+  width: 375px;
+  box-shadow: 0 12px 13px rgba(0,0,0,0.16), 0 12px 13px rgba(0,0,0,0.16);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
 
 .element-animation{
   animation: animationFrames ease 2s;
