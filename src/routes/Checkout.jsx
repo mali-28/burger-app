@@ -23,8 +23,8 @@ const Checkout = () => {
   const [errorTypeStreet, setErrorTypeStreet] = useState("");
   const [errorTypeZipcode, setErrorTypeZipcode] = useState("");
   let [orderData, setorderData] = useState({
-    name: [user.name.split(" ")[0]].join(),
-    email: user.mail,
+    name: [user?.name?.split(" ")[0]]?.join(),
+    email: user?.mail,
     street: "",
     zipCode: '',
   });
