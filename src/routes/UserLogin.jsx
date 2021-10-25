@@ -61,8 +61,6 @@ const UserLogin = () => {
                     if(response?.token){
                         setLocalStorage("__USER__", {name : response.user.name, mail : response.user.email})
                         setUser(getLocalStorage("__USER__"))
-                        setLocalStorage('Islogin' , response.token);
-                            setLocalStorage("Islogin",response.token)
                             setLogin(setLocalStorage("Islogin",response.token))
                         setInputData({
                             email: '',

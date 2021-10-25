@@ -30,8 +30,8 @@ export const counter = (state = JSON.parse(JSON.stringify(quantity)), action) =>
 
     }
     case "REMOVE": {
-
-      return ( { Lettuce: { number: 0, amount: 0 }, Bacon: { number: 0, amount: 0 }, Cheese: { number: 0, amount: 0 }, Meat: { number: 0, amount: 0 } });
+      const rmvState = JSON.parse(JSON.stringify(quantity))
+      return rmvState;
     }
     default: return state;
   }

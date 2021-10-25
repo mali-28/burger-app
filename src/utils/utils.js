@@ -4,7 +4,7 @@ export const getLocalStorage = (key) =>{
     try{
     if(key){
         const data = localStorage.getItem(key);
-        console.log("data",data)
+        // console.log("data",data)
         if(data){
           
             return JSON.parse(data)

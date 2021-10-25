@@ -11,7 +11,7 @@ import {
 
 const Checkout = () => {
   const {login,user} = useContext(loginContext);
-console.log("user" , user)
+// console.log("user" , user)
   const history = useHistory();
 
   useEffect(() => {

@@ -42,10 +42,10 @@ const HomeContent = (props) => {
           {!productPrice ? <div><h1 className="t-center red">No Ingrediant Added</h1></div> : <div >
             <div>
 
-              {lettuce?.map((val, id) => { return <div key={id} className="w-40 h-05 bg-lettuce m-02"></div> })}
-              {bacon?.map((val, id) => { return <div key={id} className="w-40 h-05 bg-bacon m-02"></div> })}
-              {cheese?.map((val, id) => { return <div key={id} className="w-40 h-05 bg-cheese m-02"></div> })}
-              {meat?.map((val, id) => { return <div key={id} className="w-40 h-05 bg-meat m-02"></div> })}
+              {lettuce?.map((_val, id) => { return <div key={`${id}lettuce`} className="w-40 h-05 bg-lettuce m-02"></div> })}
+              {bacon?.map((_val, id) => { return <div key={`${id}bacon`} className="w-40 h-05 bg-bacon m-02"></div> })}
+              {cheese?.map((_val, id) => { return <div key={`${id}cheese`} className="w-40 h-05 bg-cheese m-02"></div> })}
+              {meat?.map((_val, id) => { return <div key={`${id}meat`} className="w-40 h-05 bg-meat m-02"></div> })}
             </div>
           </div>}
 
@@ -81,14 +81,14 @@ const HomeContent = (props) => {
 
             {!login ? <button
               style={{
-                background: !productPrice ? "#83591a" : "#D8AC68",
-                cursor: !productPrice ? "not-allowed" : "pointer"
+                background: productPrice ? "#D8AC68" :"#83591a",
+                cursor: productPrice ?  "pointer" :"not-allowed",
               }}
               disabled={!productPrice}
               onClick={() => {history.replace('login') }}
               className="w-80per b-1-brown white f-2 p-1 mt-2 text-capitalize f-family-monospace">Sign in to order
             </button> :
-              <button style={{ background: !productPrice ? "#83591a" : "#D8AC68", cursor: !productPrice? "not-allowed" : "pointer" }}
+              <button style={{ background: productPrice ? "#D8AC68" :"#83591a", cursor: productPrice ?  "pointer" :"not-allowed"}}
                 disabled={!productPrice}
                 onClick={handleDialog}
                 className="w-80per b-1-brown white f-2 p-1 mt-2 text-capitalize f-family-monospace">Order Now
@@ -99,7 +99,7 @@ const HomeContent = (props) => {
 
       </div>
 
-      <DialogBox total={productPrice} onClose={handleDialog} open={open} counter={props.counter}   remove={() => { props.remove() }} />
+      <DialogBox total={productPrice} onClose={handleDialog} open={open} counter={props.counter}   remove={props.remove} />
       
     </>
   );

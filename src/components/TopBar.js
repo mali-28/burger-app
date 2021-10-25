@@ -6,6 +6,16 @@ const TopBar = () => {
 
   const { login, setLogin,setUser } = useContext(loginContext);
 
+
+  const func = () =>{
+    if (!login) {
+      return  <NavLink style={{ padding: "22px 30px 16px 30px", }} className=" white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/login'>Login</NavLink>
+    }else{
+          return <><NavLink  className="p-022-3-016-3 white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/order'>Order</NavLink>
+            <NavLink onClick={()=>{setLogin(localStorage.removeItem("Islogin"), setUser(localStorage.removeItem("__USER__")))}}  className="p-022-3-016-3 white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/login'>Logout</NavLink> </>
+
+    }
+  }
   return (
 
     <header className="header" style={styles.header}>
@@ -24,12 +34,12 @@ const TopBar = () => {
 
 
         <NavLink className="p-022-3-016-3 white t-decoration-none  f-family-monospace" activeClassName="active-menu" exact to='/'>Burger Builder</NavLink>
-        {!login ? <NavLink style={{ padding: "22px 30px 16px 30px", }} className=" white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/login'>Login</NavLink> :
+        {/* {!login ? <NavLink style={{ padding: "22px 30px 16px 30px", }} className=" white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/login'>Login</NavLink> :
           <>
             <NavLink  className="p-022-3-016-3 white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/order'>Order</NavLink>
             <NavLink onClick={()=>{setLogin(localStorage.removeItem("Islogin"), setUser(localStorage.removeItem("__USER__")))}}  className="p-022-3-016-3 white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/login'>Logout</NavLink>
-          </>}
-
+          </>} */}
+          {func()}
 
 
       </div>
