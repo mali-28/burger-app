@@ -110,54 +110,12 @@ const UserSignUp = () => {
 
       
 
-
-
-    // Save this as fetch.js --------------------------------------------------------------------------
-
-function success(json) {
-    document.getElementById('after').innerHTML = json.message;
-    console.log("AFTER: " + JSON.stringify(json));
-  } // ----------------------------------------------------------------------------------------------
-  
-  function failure(error) {
-    document.getElementById('after').innerHTML = "ERROR: " + error;
-    console.log("ERROR: " + error);
-  } // --------------------------------------------------------------------------------------
-
-  
-    const click = () =>{
-        
-    
-        const url = 'https://bookofpositivity.herokuapp.com/auth/signup';
-
-        console.log(signUpData);
-      
-    
-      
-        fetch(url,{
-          method: 'POST', 
-          body: JSON.stringify(signUpData),
-          headers:{
-            'Content-Type': 'application/json'
-          }
-        }).then(res => res.json())
-        .then(response => success(response))
-        .catch(error => failure(error));
-
-
-        setSignUpData({
-          name : '',
-          email : '',
-          password : '',
-          gender : '',
-          });
-        
     }
   }
   function back() {
     history.goBack()
   }
-  }
+  
 
   return <>
 
@@ -170,12 +128,12 @@ function success(json) {
 
       <button onClick={() => { click() }} className="f-bold f-family-monospace f-017 bg-white outline-none b-none green mb-2 mt-2 cursor-pointer"> Submit</button>
       <button onClick={() => back()} className="f-bold f-family-monospace f-017 bg-white  b-none brown cursor-pointer"> Back To Login </button></>}
-      
 
 
     </div>
 
-     
-     </>
+
+
+  </>
 }
 export default UserSignUp;

@@ -1,4 +1,4 @@
-import React, {useState, useContext } from "react";
+import React, {useState, useContext, useEffect } from "react";
 import { NavLink } from 'react-router-dom';
 import { loginContext } from "../context/context";
 import { useHistory} from "react-router-dom";
@@ -6,18 +6,24 @@ import { getLocalStorage, setLocalStorage } from "../utils/utils";
 import Loader from "../components/Loader";
 const UserLogin = () => {
     const [loading, setLoading] = useState(false);
-    const {login,setLogin} = useContext(loginContext);
+    const {login,setLogin,user, setUser} = useContext(loginContext);
     const [message, setMessage] = useState("");
 
-    const {login,setLogin} = useContext(loginContext);
     const history = useHistory();
-
+    
     let [inputData, setInputData] = useState({
         email: '',
         password: '',
     });
 
+    useEffect(()=>{
+        if(login){
+            history.replace("/")
+        }
+    },[login])
+
     const change = (event) => {
+        setMessage("")
         event.preventDefault();
         let { name, value } = event.target;
         console.log();
@@ -28,14 +34,10 @@ const UserLogin = () => {
     }
 
 
-    function failure(error) {
-        document.getElementById('after').innerHTML = "ERROR: " + JSON.stringify(error);
-        console.log("ERROR: " + error);
-    } 
 
     const click = () => {
-
         setLoading((pre)=> !pre);
+        
        
     
         // api fetching
@@ -54,32 +56,40 @@ const UserLogin = () => {
                 // 'Authorization':''
             }
         }).then(res => res.json())
-            .then(response => {{setLocalStorage('Islogin' , response.token);
-            setLogin(getLocalStorage('Islogin'));
-            history.push('/')
-            }})
+            .then(response => {{
+                
+                    if(response?.token){
+                        setLocalStorage("__USER__", {name : response.user.name, mail : response.user.email})
+                        setUser(getLocalStorage("__USER__"))
+                            setLogin(setLocalStorage("Islogin",response.token))
+                        setInputData({
+                            email: '',
+                            password: '',
+                        })
+                        history.push('/')
+                    }else{
+                    setMessage(response.message)
+                    
+                        
+                    }
+                }
+            
+
+            })
             .catch(error => {
-                console.log({error})
                 setMessage(error)
             })
             .finally(()=>{
-                setLoading((pre)=> !pre);
-
-                setInputData({
-                    email: '',
-                    password: '',
+                    setLoading((pre)=> { console.log("pre", pre) ;return !pre})
+    
+                    
                 })
-            })
-            
-
-        
-    }
-
+  }
     
     return <>
 
 
-        <div className="w-40 box-shadow-ccc b-1-c9  p-2 m-3-auto d-flex flex-d-column flex-align-center">
+<div className="w-40 box-shadow-ccc b-1-c9  p-2 m-3-auto d-flex flex-d-column flex-align-center">
             
             {loading? <Loader/> : <><span  className="f-014 mb-2 success">{message}</span>
             <input type="email" onChange={change} name='email' className="input mb-2  f-family-monospace" value={inputData.email} placeholder="E-mail-Address" />

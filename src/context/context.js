@@ -1,17 +1,26 @@
-import React, { createContext,useState } from "react";
+import React, { createContext,useEffect,useState } from "react";
+import { getLocalStorage } from "../utils/utils";
 
 const loginContext = createContext(false);
 
 const Context = (props) =>{
-    const [data, setData] = useState([]);
+    
+    
+    const [login, setLogin] = useState(getLocalStorage("Islogin"));
+    const [user, setUser] = useState(getLocalStorage("__USER__") || {});
+    
 
-    const [login, setLogin] = useState(JSON.stringify(localStorage.getItem("Islogin")));
+    useEffect(()=>{
+        
+        const token = getLocalStorage("Islogin");
+        
+        setLogin(token);
+        
+    },)
 
-
-   
 
 return<>
-<loginContext.Provider value={{login,setLogin, data, setData}}>
+<loginContext.Provider value={{login,setLogin,user, setUser}}>
     {props.children}
 </loginContext.Provider></>
 

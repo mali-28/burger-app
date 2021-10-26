@@ -1,6 +1,6 @@
 const Loader = () => {
     return <>
-        <div id="preloader">
+        <div id="preloader" className="h-10">
             <div id="div-loader">
                 <div class='div1 spin-acw'>
 

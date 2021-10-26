@@ -4,8 +4,18 @@ import { loginContext } from "../context/context";
 
 const TopBar = () => {
 
-  const { login, setLogin } = useContext(loginContext);
+  const { login, setLogin,setUser } = useContext(loginContext);
 
+
+  const func = () =>{
+    if (!login) {
+      return  <NavLink style={{ padding: "22px 30px 16px 30px", }} className=" white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/login'>Login</NavLink>
+    }else{
+          return <><NavLink  className="p-022-3-016-3 white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/order'>Order</NavLink>
+            <NavLink onClick={()=>{setLogin(localStorage.removeItem("Islogin"), setUser(localStorage.removeItem("__USER__")))}}  className="p-022-3-016-3 white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/login'>Logout</NavLink> </>
+
+    }
+  }
   return (
 
     <header className="header" style={styles.header}>
@@ -14,22 +24,18 @@ const TopBar = () => {
           <NavLink to="/">
             <img
               alt={"logo"}
-              src="/favicon-196x196.png"
-              style={{ maxHeight: 40, }}
+              src="/logo.jpg"
+              className="h-4 ml-2 br-2"
             />
           </NavLink>
         </div>
       </div>
-      <div style={{ paddingRight: 20 }}>
+      <div className="pr-2" >
 
 
-        <NavLink  className="p-022-3-016-3 white t-decoration-none  f-family-monospace" activeClassName="active-menu" exact to='/'>Burger Builder</NavLink>
-        {!login ? <NavLink  className="p-022-3-016-3 white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/login'>Login</NavLink> :
-          <>
-            <NavLink  className=" p-022-3-016-3 white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/order'>Order</NavLink>
-            <NavLink onClick={()=>{setLogin(localStorage.removeItem("Islogin"))}}  className="p-022-3-016-3  white t-decoration-none  f-family-monospace" exact activeClassName="active-menu" exact to='/login'>Logout</NavLink>
-          </>}
-
+        <NavLink className="p-022-3-016-3 white t-decoration-none  f-family-monospace" activeClassName="active-menu" exact to='/'>Burger Builder</NavLink>
+       
+          {func()}
 
 
       </div>

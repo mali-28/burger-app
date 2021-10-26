@@ -1,21 +1,24 @@
-import React, { useContext } from "react";
-import Count from './Count';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useEffect } from "react";
 import { connect } from "react-redux";
+import DialogBox from "./DialogBox";
 import { useHistory } from 'react-router-dom';
 import Count from './Count';
 import { loginContext } from "../context/context";
-import DialogBox from "./DialogBox";
+import { products } from "../products/products";
 
 const HomeContent = (props) => {
   const history = useHistory();
-  const { login, setLogin } = useContext(loginContext);
+  
+  const { login } = useContext(loginContext);
   const [open, setOpen] = React.useState(false);
-
-  const bacon = Array.from(Array(props.counter.Bacon).keys())
-  const lettuce = Array.from(Array(props.counter.Lettuce).keys())
-  const cheese = Array.from(Array(props.counter.Cheese).keys())
-  const meat = Array.from(Array(props.counter.Meat).keys())
+  
+  const bacon = Array.from(Array(props.counter.Bacon.number).keys())
+  const lettuce = Array.from(Array(props.counter.Lettuce.number).keys())
+  const cheese = Array.from(Array(props.counter.Cheese.number).keys())
+  const meat = Array.from(Array(props.counter.Meat.number).keys())
+  const key = Object.values(props.counter);
+  const productPrice =key.reduce((total, currentValue) => total + currentValue.amount,0);
+   console.log('product', productPrice)
 
   const handleDialog = () => {
     setOpen((prev)=> !prev);
@@ -23,10 +26,6 @@ const HomeContent = (props) => {
 
   
 
-
-
-
-  console.log("counter props main", props.counter)
   return (
     <>
       <div className="min-h-50 d-flex j-content-center pt-5">
@@ -40,13 +39,13 @@ const HomeContent = (props) => {
             <div className="bg-white h-4 w-08 ml-6 mt-2 rotate-r-30 b-rad-5 box-shadow-gray"></div>
           </div>
 
-          {(!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese) ? <div><h1 className="t-center">No Ingrediant Added</h1></div> : <div className="">
+          {!productPrice ? <div><h1 className="t-center red">No Ingrediant Added</h1></div> : <div >
             <div>
 
-              {lettuce?.map(()=>{return <div className="w-40 h-05 bg-lettuce m-02"></div>})}
-              {bacon?.map(()=>{return <div className="w-40 h-05 bg-bacon m-02"></div>})}
-              {cheese?.map(()=>{return <div className="w-40 h-05 bg-cheese m-02"></div>})}
-              {meat?.map(()=>{return <div className="w-40 h-05 bg-meat m-02"></div>})}
+              {lettuce?.map((_val, id) => { return <div key={`${id}lettuce`} className="w-40 h-05 bg-lettuce m-02"></div> })}
+              {bacon?.map((_val, id) => { return <div key={`${id}bacon`} className="w-40 h-05 bg-bacon m-02"></div> })}
+              {cheese?.map((_val, id) => { return <div key={`${id}cheese`} className="w-40 h-05 bg-cheese m-02"></div> })}
+              {meat?.map((_val, id) => { return <div key={`${id}meat`} className="w-40 h-05 bg-meat m-02"></div> })}
             </div>
           </div>}
 
@@ -59,26 +58,37 @@ const HomeContent = (props) => {
         </div>
       </div>
       <div className="bg-yellow pt-5 pb-5">
-        <div className="w-26 m-0-auto t-center">
-          <p className="f-2">Current price</p>
+        <div className="w-40 m-0-auto t-center">
+          <p className="f-2">Current price:  ${productPrice}
+          </p>
+          <div className="w-40">
+            <table>
+              <thead>
+                <tr className="head">
+                <td>Items</td>
+                <td>Price</td>
+                <td>Quantity</td>
+                </tr>
+              </thead>         
+              <tbody>    {products.map((val) => {
+                return <tr className="body" key={val.id}>
+                  <Count  title={val.title} price={val.price} />
+                </tr>
 
-          <div className="w-26">
-
-            <Count title="Lettuce" />
-            <Count title="Bacon" />
-            <Count title="Cheese" />
-            <Count title="Meat" />
+              })}
+              </tbody>
+            </table>
 
             {!login ? <button
               style={{
-                background: (!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese) ? "#83591a" : "#D8AC68",
-                cursor: (!props.counter.Bacon && !props.counter.Lettuce && !props.counter.Meat && !props.counter.Cheese) ? "not-allowed" : "pointer"
+                background: productPrice ? "#D8AC68" :"#83591a",
+                cursor: productPrice ?  "pointer" :"not-allowed",
               }}
               disabled={!productPrice}
               onClick={() => {history.replace('login') }}
               className="w-80per b-1-brown white f-2 p-1 mt-2 text-capitalize f-family-monospace">Sign in to order
             </button> :
-              <button style={{ background: !productPrice ? "#83591a" : "#D8AC68", cursor: !productPrice? "not-allowed" : "pointer" }}
+              <button style={{ background: productPrice ? "#D8AC68" :"#83591a", cursor: productPrice ?  "pointer" :"not-allowed"}}
                 disabled={!productPrice}
                 onClick={handleDialog}
                 className="w-80per b-1-brown white f-2 p-1 mt-2 text-capitalize f-family-monospace">Order Now
@@ -89,7 +99,7 @@ const HomeContent = (props) => {
 
       </div>
 
-      <DialogBox onClose={handleDialog} open={open} counter={props.counter}   remove={() => { props.remove() }} />
+      <DialogBox total={productPrice} onClose={handleDialog} open={open} counter={props.counter}   remove={props.remove} />
       
     </>
   );
@@ -100,12 +110,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    increment: (key) => {
-      dispatch({ type: "INCREMENT", payload: key });
-    },
-    decrement: (key) => {
-      dispatch({ type: "DECREMENT", payload: key });
-    },
+    
     remove: () => {
       dispatch({ type: "REMOVE" });
     },
