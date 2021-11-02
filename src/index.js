@@ -16,7 +16,6 @@ import { store } from "./Store/store";
 import Context from './context/context'
 ReactDOM.render(
   <BrowserRouter>
-    <div>
       <Context>
         <TopBar/>
         <Provider store={store}>
@@ -30,9 +29,6 @@ ReactDOM.render(
       </Switch>
       </Provider>
       </Context>
-    </div>
-
   </BrowserRouter>,
-  document.getElementById("root")
-);
+  document.getElementById("root"));
 registerServiceWorker();

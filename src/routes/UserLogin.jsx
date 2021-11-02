@@ -1,12 +1,11 @@
 import React, {useState, useContext, useEffect } from "react";
-import { NavLink } from 'react-router-dom';
+import { NavLink ,useHistory} from 'react-router-dom';
 import { loginContext } from "../context/context";
-import { useHistory} from "react-router-dom";
 import { getLocalStorage, setLocalStorage } from "../utils/utils";
 import Loader from "../components/Loader";
 const UserLogin = () => {
     const [loading, setLoading] = useState(false);
-    const {login,setLogin,user, setUser} = useContext(loginContext);
+    const {login,setLogin, setUser} = useContext(loginContext);
     const [message, setMessage] = useState("");
 
     const history = useHistory();

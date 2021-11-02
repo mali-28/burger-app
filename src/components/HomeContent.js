@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { connect } from "react-redux";
 import DialogBox from "./DialogBox";
 import { useHistory } from 'react-router-dom';
@@ -59,8 +59,6 @@ const HomeContent = (props) => {
       </div>
       <div className="bg-yellow pt-5 pb-5">
         <div className="w-40 m-0-auto t-center">
-          <p className="f-2">Current price:  ${productPrice}
-          </p>
           <div className="w-40">
             <table>
               <thead>
@@ -70,11 +68,12 @@ const HomeContent = (props) => {
                 <td>Quantity</td>
                 </tr>
               </thead>         
-              <tbody>    {products.map((val) => {
-                return <tr className="body" key={val.id}>
+              <tbody>    
+                {products.map((val) => {
+                return <tr className="body" key={`${val.id}_${val.title}`}>
+
                   <Count  title={val.title} price={val.price} />
                 </tr>
-
               })}
               </tbody>
             </table>

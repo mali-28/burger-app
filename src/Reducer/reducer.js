@@ -8,8 +8,7 @@ export const counter = (state = JSON.parse(JSON.stringify(quantity)), action) =>
     case "INCREMENT": {
       let addInteger = state[action.payload.title]["number"] + 1;
       state[action.payload.title]["number"] = addInteger
-      let addAmount = state[action.payload.title]["amount"]
-      addAmount = addInteger * action.payload.price;
+      let addAmount = addInteger * action.payload.price;
       state[action.payload.title]["amount"] = addAmount;
 
       return ({ ...state, [action.payload.title]: { number: addInteger, amount: addAmount } });
@@ -30,8 +29,7 @@ export const counter = (state = JSON.parse(JSON.stringify(quantity)), action) =>
 
     }
     case "REMOVE": {
-      const rmvState = JSON.parse(JSON.stringify(quantity))
-      return rmvState;
+      return JSON.parse(JSON.stringify(quantity));
     }
     default: return state;
   }

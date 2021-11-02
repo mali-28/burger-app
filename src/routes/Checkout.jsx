@@ -1,13 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { getLocalStorage, setLocalStorage } from '../utils/utils';
+import { getLocalStorage, setLocalStorage,validateUserName, validateZipCode } from '../utils/utils';
 import { loginContext } from "../context/context";
 import InputField from '../components/InputField';
 
-import {
-  validateUserName,
-  validateZipCode
-} from "../utils/utils";
 
 const Checkout = () => {
   const {login,user} = useContext(loginContext);

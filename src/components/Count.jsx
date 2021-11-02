@@ -6,24 +6,26 @@ const Count = (props) => {
                 <td className=" f-family-cursive">{props.title}</td>
                 <td>{`$${props.price}`}</td>
                 <td>
-                  <tr>
-                    <td>
+                  <ul >
+                    <li style={{display: "inline"}}>
                     <button onClick={() => {
                         props.decrement(props.title,props.price);
                     }}
                     style={{background : !props.counter[props.title]["number"]? "#D8AC68" : "#df7f09", cursor : props.counter[props.title]["number"]? "pointer" : "not-allowed"}} className="mr-1 p-05-2  br-none  f-family-monospace b-1-brown white" disabled={!props.counter[props.title]["number"]}>Less</button>
-                </td>
-                <td>
+               </li>
+               <li style={{display: "inline"}}>
+
                     <i className="mr-1">{props.counter[props.title]["number"]}</i>
-                </td>
-                <td>
+                </li>
+                <li style={{display: "inline"}}>
                     <button 
                     onClick={() => {
                         props.increment(props.title,props.price);
                     }}
                     className="p-05-2  br-none f-family-monospace b-1-brown bg-brown cursor-pointer white">More</button>
-                    </td>
-                    </tr>
+                    </li>
+                    </ul>
+                   
                 </td>
                 
 
