@@ -10,7 +10,7 @@
 
 # production
 /build
-
+/gok-stream - react-coding-challange-2
 # misc
 .DS_Store
 .env.local
